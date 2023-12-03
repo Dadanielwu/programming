@@ -40,25 +40,27 @@ class Account:
         self.Display()
         data_path = "C:\\Users\\ddwu0\\OneDrive\\桌面\\min_project\\Account_data.csv"
         df = pd.read_csv(data_path)
-        choice=input("1.What do you want to Revise?\n1.Account name.\n2.Account number.")
-        if choice=="1":
-            new_name=input("What's your new name?")
-            if new_name.isalpha()==False:
-                print("Only can input English")
-                Account.Revise(self)
-            # 更改名字
-            else:
-                df.loc[df['Account_name'] == self.account_name, 'Account_name'] = new_name
+        while True:
+            choice=input("1.What do you want to Revise?\n1.Account name.\n2.Account number.")
+            if choice=="1":
+                new_name=input("What's your new name?")
+                if new_name.isalpha()==False:
+                    print("Only can input English")
+                # 更改名字
+                else:
+                    df.loc[df['Account_name'] == self.account_name, 'Account_name'] = new_name
+                    df.to_csv(data_path, index=False)
+                    self.account_name=new_name
+                    return new_name
+            elif choice=="2":
+                new_number=input("What's your new number?")
+                # 更改密碼
+                df.loc[df['Account_name'] == self.account_name, 'Account_name'] = new_number    
                 df.to_csv(data_path, index=False)
-                self.account_name=new_name
-        elif choice=="2":
-            new_number=input("What's your new number?")
-            # 更改密碼
-            df.loc[df['Account_number'] == self.account_number, 'Account_number'] = new_number    
-            df.to_csv(data_path, index=False)
-            self.account_number=new_number
-        else:
-            print("Error")
+                self.account_number=new_number
+                break
+            else:
+                print("Error")
 
     def Delete(self):
         # data_path = "C:\\Users\\ddwu0\\OneDrive\\桌面\\min_project\\Account_data.csv"
@@ -582,7 +584,8 @@ class Capability:
         while lock1==True:
             choice=input("1.Revise your Account information.\n2.Delete your Account.\n3.Display your Account detail.\n4.Manage your money.\n5.Recording your trade.\n6.Log out.")
             if choice=="1":
-                account.Revise()
+                new_name=account.Revise()
+                name=new_name
             elif choice=="2":
                 lock1=account.Delete()
             elif choice=="3":
