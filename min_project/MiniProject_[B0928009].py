@@ -55,7 +55,7 @@ class Account:
             elif choice=="2":
                 new_number=input("What's your new number?")
                 # 更改密碼
-                df.loc[df['Account_name'] == self.account_name, 'Account_name'] = new_number    
+                df.loc[df['Account_name'] == self.account_name, 'Account_number'] = new_number    
                 df.to_csv(data_path, index=False)
                 self.account_number=new_number
                 break
